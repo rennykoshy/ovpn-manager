@@ -84,7 +84,7 @@ if get_option('buildtype') == 'release'
 endif
 
 # Include directories
-inc = include_directories('include', 'vendor')
+inc = include_directories('vendor')
 
 # Subdirectories
 subdir('src')
