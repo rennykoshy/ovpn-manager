@@ -272,6 +272,8 @@ docker run -it --rm -v $(pwd):/workspace -w /workspace debian:12 bash
 apt-get update
 apt-get install -y build-essential pkg-config python3 python3-pip ninja-build \
   libglib2.0-dev libsystemd-dev libgtk-3-dev libayatana-appindicator3-dev libcairo2-dev
+
+# Note: openvpn3 is NOT needed for building - it's a runtime dependency only
 pip3 install --break-system-packages meson
 
 meson setup builddir --buildtype=release

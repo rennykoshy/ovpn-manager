@@ -70,9 +70,9 @@ Professional GTK3-based VPN client for managing OpenVPN3 connections on Linux. D
 **Binary Size:** ~100 KB stripped
 **Memory Usage:** ~15-20 MB (with dashboard and monitoring active)
 
-## Build Dependencies
+## Dependencies
 
-### Required
+### Build Dependencies
 ```bash
 sudo apt-get install -y \
   build-essential \
@@ -81,12 +81,19 @@ sudo apt-get install -y \
   libsystemd-dev \
   libgtk-3-dev \
   libayatana-appindicator3-dev \
-  libcairo2-dev \
-  openvpn3
+  libcairo2-dev
 
 # Install meson and ninja (if not already installed)
 pip3 install --user meson ninja
 ```
+
+### Runtime Dependencies
+```bash
+# Required to actually use the VPN client
+sudo apt-get install -y openvpn3
+```
+
+**Note:** `openvpn3` is NOT needed for building, only for running the application.
 
 ## Build Instructions
 
