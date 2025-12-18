@@ -257,6 +257,9 @@ static void on_app_activate(GApplication *application, gpointer user_data) {
     /* Add timer to update dashboard every 2 seconds */
     dashboard_timer_id = g_timeout_add_seconds(2, dashboard_update_callback, NULL);
 
+    /* Hold the application - prevent it from exiting (we use tray icon, not windows) */
+    g_application_hold(application);
+
     printf("OpenVPN3 Manager started successfully\n");
     printf("System tray icon should be visible\n");
     printf("Press Ctrl+C or use tray menu to quit\n\n");
@@ -266,10 +269,12 @@ static void on_app_activate(GApplication *application, gpointer user_data) {
  * Application shutdown callback
  */
 static void on_app_shutdown(GApplication *application, gpointer user_data) {
-    (void)application;
     (void)user_data;
 
     printf("\nApplication shutting down\n");
+
+    /* Release the application hold */
+    g_application_release(application);
 
     /* Cleanup resources */
     cleanup();
