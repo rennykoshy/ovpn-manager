@@ -14,7 +14,7 @@
 /* Global variables */
 GMainLoop *main_loop = NULL;  /* Non-static so tray.c can access it */
 Dashboard *dashboard = NULL;  /* Non-static so tray.c can access it */
-static GApplication *app = NULL;
+GApplication *app = NULL;     /* Non-static so tray.c can access it */
 static DbusManager *dbus_manager = NULL;
 static TrayIcon *tray_icon = NULL;
 static guint tray_timer_id = 0;

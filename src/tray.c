@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <gio/gio.h>
 #include <gtk/gtk.h>
 #include <libayatana-appindicator/app-indicator.h>
 
@@ -180,10 +181,10 @@ static void quit_callback(GtkMenuItem *item, gpointer user_data) {
 
     printf("Quit menu item clicked\n");
 
-    /* Quit the GLib main loop */
-    extern GMainLoop *main_loop;  /* Defined in main.c */
-    if (main_loop) {
-        g_main_loop_quit(main_loop);
+    /* Quit the GApplication */
+    extern GApplication *app;  /* Defined in main.c */
+    if (app) {
+        g_application_quit(app);
     }
 }
 
