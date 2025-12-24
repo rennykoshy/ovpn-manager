@@ -21,6 +21,7 @@ static guint tray_timer_id = 0;
 static guint session_timer_id = 0;
 static guint timer_update_id = 0;
 static guint dashboard_timer_id = 0;
+static gboolean app_held = FALSE;  /* Track if g_application_hold was called */
 
 /**
  * GTK/Tray event processing callback
@@ -259,6 +260,7 @@ static void on_app_activate(GApplication *application, gpointer user_data) {
 
     /* Hold the application - prevent it from exiting (we use tray icon, not windows) */
     g_application_hold(application);
+    app_held = TRUE;
 
     printf("OpenVPN3 Manager started successfully\n");
     printf("System tray icon should be visible\n");
@@ -273,8 +275,11 @@ static void on_app_shutdown(GApplication *application, gpointer user_data) {
 
     printf("\nApplication shutting down\n");
 
-    /* Release the application hold */
-    g_application_release(application);
+    /* Release the application hold only if it was acquired */
+    if (app_held) {
+        g_application_release(application);
+        app_held = FALSE;
+    }
 
     /* Cleanup resources */
     cleanup();
